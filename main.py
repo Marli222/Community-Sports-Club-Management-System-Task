@@ -53,6 +53,7 @@ class Coach(Person):
         self.specialisation = ''
         self.salary = ''
         self.mentees = []
+        self.mentorship_group = []
 
     def set_coach_details(self, coach_id, specialisation, salary):
         self.coach_id = coach_id
@@ -63,10 +64,20 @@ class Coach(Person):
         self.mentees.append(member)
         print(f"Coach {self.name} is now mentoring {member.name} in {member.sport}.")
 
+    def mentor_coach(self,coach):
+        self.mentorship_group.append(coach)
+        print(f"Coach {self.name} is now mentoring {coach.name} in {coach.specialisation}.")
+
     def get_mentees(self):
         l = []
         for x in self.mentees:
-            l.append(f"{x.name} who does {x.sport}")
+            l.append(f"{x.name} ({x.sport})")
+        return l
+    
+    def get_mentorship_group(self):
+        l = []
+        for x in self.mentorship_group:
+            l.append(f"{x.name} ({x.specialisation})")
         return l
 
     def increase_salary(self,percentage):
@@ -81,6 +92,7 @@ class Coach(Person):
         Specialisation: {self.specialisation}
         Salary: {self.salary}
         Mentees: {self.get_mentees()}
+        Coach Mentees: {self.get_mentorship_group()}
 """ 
 
 class Staff(Person):
@@ -132,6 +144,7 @@ Member1.add_performance_score(9)
 Staff1.assist_member(Member2)
 Coach1.increase_salary(15)
 Staff1.increment_years_of_service()
+Coach1.mentor_coach(Coach2)
 
 print(
 Coach1.get_coach_summary(),
